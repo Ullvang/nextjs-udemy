@@ -2,6 +2,10 @@ import path from "path";
 import fs from "fs";
 
 export default function ProductDetailPage({ loadedProduct }) {
+  //   if (!loadedProduct) {
+  //     return <p>Loading...</p>;
+  //   }
+
   return (
     <>
       <h1>{loadedProduct.title}</h1>
@@ -33,17 +37,7 @@ export async function getStaticPaths() {
           pid: "p1",
         },
       },
-      {
-        params: {
-          pid: "p2",
-        },
-      },
-      {
-        params: {
-          pid: "p3",
-        },
-      },
     ],
-    fallback: false,
+    fallback: "blocking",
   };
 }
