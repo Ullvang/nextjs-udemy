@@ -1,33 +1,53 @@
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 function LastSalesPage() {
   const [sales, setSales] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  //   const [isLoading, setIsLoading] = useState(true);
+
+  const { data, error } = useSWR(
+    "https://nextjs-course-b3835-default-rtdb.firebaseio.com/sales.json"
+  );
+
   useEffect(() => {
-    setIsLoading(true);
-    const transformedSales = [];
-    fetch("https://nextjs-course-b3835-default-rtdb.firebaseio.com/sales.json")
-      .then((response) => response.json())
-      .then((data) => {
-        for (const key in data) {
-          transformedSales.push({
-            id: key,
-            username: data[key].username,
-            volume: data[key].volume,
-          });
-        }
+    if (data) {
+      const transformedSales = [];
+      for (const key in data) {
+        transformedSales.push({
+          id: key,
+          username: data[key].username,
+          volume: data[key].volume,
+        });
+      }
+      setSales(transformedSales);
+    }
+  }, [data]);
 
-        setSales(transformedSales);
-        setIsLoading(false);
-      });
-  }, []);
+  //   useEffect(() => {
+  //     setIsLoading(true);
+  //     const transformedSales = [];
+  //     fetch("https://nextjs-course-b3835-default-rtdb.firebaseio.com/sales.json")
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         for (const key in data) {
+  //           transformedSales.push({
+  //             id: key,
+  //             username: data[key].username,
+  //             volume: data[key].volume,
+  //           });
+  //         }
 
-  if (isLoading) {
-    return <p>Loading...</p>;
+  //         setSales(transformedSales);
+  //         setIsLoading(false);
+  //       });
+  //   }, []);
+
+  if (error) {
+    return <p>Failed to load.</p>;
   }
 
-  if (!sales) {
-    return <p>No Data</p>;
+  if (!data || !sales) {
+    return <p>Loading...</p>;
   }
 
   return (
