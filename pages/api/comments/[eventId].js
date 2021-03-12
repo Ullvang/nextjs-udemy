@@ -1,4 +1,4 @@
-export default function handler(res, res) {
+export default function handler(req, res) {
   const eventId = req.query.eventId;
 
   if (req.method === "POST") {
@@ -31,6 +31,6 @@ export default function handler(res, res) {
       { id: "c2", name: "Manuel", text: "A second comment!" },
     ];
 
-    res.status(200).json({ comment: dummyList });
+    res.status(200).json({ comments: dummyList });
   }
 }
