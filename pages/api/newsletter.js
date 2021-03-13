@@ -12,14 +12,14 @@ export default async function handler(req, res) {
     const client = await MongoClient.connect(
       "mongodb+srv://nextjs-app:" +
         process.env.DB_PASS +
-        "@nextjs-db.mnf8i.mongodb.net/newsletter?retryWrites=true&w=majority",
+        "@nextjs-db.mnf8i.mongodb.net/events?retryWrites=true&w=majority",
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       }
     );
     const db = client.db();
-    await db.collection("emails").insertOne({ email: userEmail });
+    await db.collection("newsletter").insertOne({ email: userEmail });
 
     client.close();
     res.status(201).json({ message: "Signed up!" });
