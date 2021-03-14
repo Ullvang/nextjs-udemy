@@ -1,11 +1,11 @@
 import PostItem from "./post-item";
-import classes from ".posts-grid.module.css";
+import classes from "./posts-grid.module.css";
 
 function PostsGrid({ posts }) {
   return (
-    <ul classes={classes.grid}>
+    <ul className={classes.grid}>
       {posts.map((post) => (
-        <PostItem post={post} />
+        <PostItem key={post.slug} post={post} />
       ))}
     </ul>
   );
