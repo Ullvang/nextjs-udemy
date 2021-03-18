@@ -30,8 +30,8 @@ function ContactForm() {
         setRequestStatus(null);
         setRequestError(null);
       }, 3000);
+      return () => clearTimeout(timer);
     }
-    return () => clearTimeout(timer);
   }, [requestStatus]);
 
   async function sendMessageHandler(event) {
